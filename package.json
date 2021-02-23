@@ -27,13 +27,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ckan/ckan.git"
+    "url": "git+https://github.com/anhlt2710/OpenData_ckan"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ckan/ckan/issues"
+    "url": "https://github.com/anhlt2710/OpenData_ckan/issues"
   },
-  "homepage": "https://github.com/ckan/ckan#readme"
+  "homepage": "https://github.com/anhlt2710/OpenData_ckan#readme"
 }

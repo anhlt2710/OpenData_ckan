@@ -39,7 +39,7 @@ rst_epilog = '''
 .. |production.ini| replace:: |config_dir|/production.ini
 .. |development.ini| replace:: |config_dir|/development.ini
 .. |ckan.ini| replace:: |config_dir|/ckan.ini
-.. |git_url| replace:: \https://github.com/ckan/ckan.git
+.. |git_url| replace:: \https://github.com/anhlt2710/OpenData_ckan
 .. |raw_git_url| replace:: \https://raw.githubusercontent.com/ckan/ckan
 .. |postgres| replace:: PostgreSQL
 .. |database| replace:: ckan_default
@@ -75,7 +75,7 @@ rst_epilog = '''
 .. _Jinja2: http://jinja.pocoo.org/
 .. _CKAN front page: http://127.0.0.1:5000
 .. _bootstrap: http://getbootstrap.com/2.3.2/
-.. _CKAN issue tracker: https://github.com/ckan/ckan/issues
+.. _CKAN issue tracker: https://github.com/anhlt2710/OpenData_ckan/issues
 
 '''
 
@@ -101,7 +101,7 @@ master_doc = 'contents'
 # General information about the project.
 project = u'CKAN'
 project_short_name = u'CKAN'
-copyright = u'''&copy; 2009-2018 <a href="https://okfn.org/">Open Knowledge Foundation</a> and <a href="https://github.com/ckan/ckan/graphs/contributors">contributors</a>.
+copyright = u'''&copy; 2009-2018 <a href="https://okfn.org/">Open Knowledge Foundation</a> and <a href="https://github.com/anhlt2710/OpenData_ckan/graphs/contributors">contributors</a>.
     Licensed under <a
     href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons
     Attribution ShareAlike (Unported) v3.0 License</a>.<br />

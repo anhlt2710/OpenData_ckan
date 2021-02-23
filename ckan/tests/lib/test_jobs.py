@@ -228,7 +228,7 @@ class TestWorker(RQTestBase):
         u"""
         Test database access from within the worker.
         """
-        # See https://github.com/ckan/ckan/issues/3243
+        # See https://github.com/anhlt2710/OpenData_ckan/issues/3243
         pkg_name = u"test-worker-database-access"
         try:
             pkg_dict = call_action(u"package_show", id=pkg_name)

@@ -116,7 +116,7 @@ class TestJobsCancel(helpers.RQTestBase):
         Test ``jobs cancel`` for a not existing job.
         """
         result = cli.invoke(ckan, [u"jobs", u"cancel", u"does-not-exist"])
-        # FIXME: after https://github.com/ckan/ckan/issues/5158
+        # FIXME: after https://github.com/anhlt2710/OpenData_ckan/issues/5158
         # assert result.exit_code != 0
         assert u"does-not-exist" in result.output
 

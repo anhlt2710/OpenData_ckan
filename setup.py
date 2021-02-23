@@ -208,7 +208,7 @@ for group, filepath in _extras_groups:
 setup(
     name='ckan',
     version=__version__,
-    author='https://github.com/ckan/ckan/graphs/contributors',
+    author='https://github.com/anhlt2710/OpenData_ckan/graphs/contributors',
     author_email='info@ckan.org',
     license=__license__,
     url='http://ckan.org/',

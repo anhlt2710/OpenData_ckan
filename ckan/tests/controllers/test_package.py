@@ -712,7 +712,7 @@ class TestPackageRead(object):
 
         # Create an Activity object as it was in earlier versions of CKAN.
         # This code is based on:
-        # https://github.com/ckan/ckan/blob/b348bf2fe68db6704ea0a3e22d533ded3d8d4344/ckan/model/package.py#L508
+        # https://github.com/anhlt2710/OpenData_ckan/blob/b348bf2fe68db6704ea0a3e22d533ded3d8d4344/ckan/model/package.py#L508
         activity_type = "changed"
         dataset_table_dict = dictization.table_dictize(
             model.Package.get(dataset["id"]), context={"model": model}
@@ -731,7 +731,7 @@ class TestPackageRead(object):
         model.Session.add(activity)
         # a legacy activity had a ActivityDetail associated with the Activity
         # This code is based on:
-        # https://github.com/ckan/ckan/blob/b348bf2fe68db6704ea0a3e22d533ded3d8d4344/ckan/model/package.py#L542
+        # https://github.com/anhlt2710/OpenData_ckan/blob/b348bf2fe68db6704ea0a3e22d533ded3d8d4344/ckan/model/package.py#L542
         activity_detail = model.ActivityDetail(
             activity_id=activity.id,
             object_id=dataset["id"],
@@ -2182,7 +2182,7 @@ class TestActivity(object):
 
         # Create an Activity object as it was in earlier versions of CKAN.
         # This code is based on:
-        # https://github.com/ckan/ckan/blob/b348bf2fe68db6704ea0a3e22d533ded3d8d4344/ckan/model/package.py#L508
+        # https://github.com/anhlt2710/OpenData_ckan/blob/b348bf2fe68db6704ea0a3e22d533ded3d8d4344/ckan/model/package.py#L508
         activity_type = "changed"
         dataset_table_dict = dictization.table_dictize(
             model.Package.get(dataset["id"]), context={"model": model}
@@ -2201,7 +2201,7 @@ class TestActivity(object):
         model.Session.add(activity)
         # a legacy activity had a ActivityDetail associated with the Activity
         # This code is based on:
-        # https://github.com/ckan/ckan/blob/b348bf2fe68db6704ea0a3e22d533ded3d8d4344/ckan/model/package.py#L542
+        # https://github.com/anhlt2710/OpenData_ckan/blob/b348bf2fe68db6704ea0a3e22d533ded3d8d4344/ckan/model/package.py#L542
         activity_detail = model.ActivityDetail(
             activity_id=activity.id,
             object_id=dataset["id"],

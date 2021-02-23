@@ -54,7 +54,7 @@ class CkanextTemplate(Template):
     def check_vars(self, vars, cmd):
         vars = Template.check_vars(self, vars, cmd)
 
-        # workaround for a paster issue https://github.com/ckan/ckan/issues/2636
+        # workaround for a paster issue https://github.com/anhlt2710/OpenData_ckan/issues/2636
         # this is only used from a short-lived paster command
         try:
             reload(sys)  # Python 2

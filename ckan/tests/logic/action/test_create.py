@@ -1101,7 +1101,7 @@ class TestFollowDataset(object):
         activities = helpers.call_action("user_activity_list", id=user["id"])
         assert [activity["activity_type"] for activity in activities] == []
         # A follow creates no Activity, since:
-        # https://github.com/ckan/ckan/pull/317
+        # https://github.com/anhlt2710/OpenData_ckan/pull/317
 
 
 @pytest.mark.usefixtures("clean_db", "with_request_context")
@@ -1117,7 +1117,7 @@ class TestFollowGroup(object):
         activities = helpers.call_action("user_activity_list", id=user["id"])
         assert [activity["activity_type"] for activity in activities] == []
         # A follow creates no Activity, since:
-        # https://github.com/ckan/ckan/pull/317
+        # https://github.com/anhlt2710/OpenData_ckan/pull/317
 
 
 @pytest.mark.usefixtures("clean_db", "with_request_context")
@@ -1133,7 +1133,7 @@ class TestFollowOrganization(object):
         activities = helpers.call_action("user_activity_list", id=user["id"])
         assert [activity["activity_type"] for activity in activities] == []
         # A follow creates no Activity, since:
-        # https://github.com/ckan/ckan/pull/317
+        # https://github.com/anhlt2710/OpenData_ckan/pull/317
 
 
 @pytest.mark.usefixtures("clean_db", "with_request_context")
@@ -1150,7 +1150,7 @@ class TestFollowUser(object):
         activities = helpers.call_action("user_activity_list", id=user["id"])
         assert [activity["activity_type"] for activity in activities] == []
         # A follow creates no Activity, since:
-        # https://github.com/ckan/ckan/pull/317
+        # https://github.com/anhlt2710/OpenData_ckan/pull/317
 
 
 @pytest.mark.usefixtures(u"clean_db")

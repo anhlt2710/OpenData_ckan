@@ -43,7 +43,7 @@ public, by setting this in production.ini:
   ckan.auth.public_activity_stream_detail = true
 
 More information about all of this is here:
-https://github.com/ckan/ckan/wiki/Migrate-package-activity
+https://github.com/anhlt2710/OpenData_ckan/wiki/Migrate-package-activity
             '''.format(
                 num_unmigrated=num_unmigrated_dataset_activities
             )

@@ -259,7 +259,7 @@ class Worker(rq.Worker):
         # that they are not shared with the child process and closed there
         # while still being in use in the main process, see
         #
-        #   https://github.com/ckan/ckan/issues/3365
+        #   https://github.com/anhlt2710/OpenData_ckan/issues/3365
         #
         # Note that this rolls back any non-committed changes in the session.
         # Both `Session` and `engine` automatically re-initialize themselve
