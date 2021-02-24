@@ -60,6 +60,7 @@ def upgrade():
         sa.Column('license_id', sa.Integer, sa.ForeignKey('license.id')),
         sa.Column('state_id', sa.Integer, sa.ForeignKey('state.id')),
         sa.Column('revision_id', sa.Integer, sa.ForeignKey('revision.id')),
+        sa.Column('data_type', sa.UnicodeText()),
     )
 
     op.create_table(

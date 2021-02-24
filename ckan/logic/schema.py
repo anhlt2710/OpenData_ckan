@@ -119,6 +119,7 @@ def default_create_package_schema(
         'maintainer_email': [ignore_missing, unicode_safe, email_validator],
         'license_id': [ignore_missing, unicode_safe],
         'notes': [ignore_missing, unicode_safe],
+        'data_type': [ignore_missing, unicode_safe],
         'url': [ignore_missing, unicode_safe],
         'version': [ignore_missing, unicode_safe, package_version_validator],
         'state': [ignore_not_package_admin, ignore_missing],
