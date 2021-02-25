@@ -316,6 +316,7 @@ class GroupController(base.BaseController):
 
             default_facet_titles = {'organization': _('Organizations'),
                                     'groups': _('Groups'),
+                                    'data_type': _('Data type'),
                                     'tags': _('Tags'),
                                     'res_format': _('Formats'),
                                     'license_id': _('Licenses')}

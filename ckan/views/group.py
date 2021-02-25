@@ -303,6 +303,7 @@ def _read(id, limit, group_type):
     default_facet_titles = {
         u'organization': _(u'Organizations'),
         u'groups': _(u'Groups'),
+        u'data_type': _(u'Data type'),
         u'tags': _(u'Tags'),
         u'res_format': _(u'Formats'),
         u'license_id': _(u'Licenses')

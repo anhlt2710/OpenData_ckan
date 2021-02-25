@@ -60,7 +60,7 @@ if six.PY2:
 
 log = logging.getLogger(__name__)
 
-DEFAULT_FACET_NAMES = u'organization groups tags res_format license_id'
+DEFAULT_FACET_NAMES = u'organization groups data_type tags res_format license_id'
 
 MARKDOWN_TAGS = set([
     'del', 'dd', 'dl', 'dt', 'h1', 'h2',
@@ -2764,6 +2764,11 @@ def get_translated(data_dict, field):
 @core_helper
 def facets():
     u'''Returns a list of the current facet names'''
+    print 11111111111111111
+    print 11111111111111111
+    print 11111111111111111
+    print 11111111111111111
+    print config.get(u'search.facets', DEFAULT_FACET_NAMES).split()
     return config.get(u'search.facets', DEFAULT_FACET_NAMES).split()
 
 

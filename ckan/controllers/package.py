@@ -255,12 +255,15 @@ class PackageController(base.BaseController):
             default_facet_titles = {
                 'organization': _('Organizations'),
                 'groups': _('Groups'),
+                'data_type': _('Groups'),
                 'tags': _('Tags'),
                 'res_format': _('Formats'),
                 'license_id': _('Licenses'),
             }
 
             for facet in h.facets():
+                print 'facet' facet
+                print facet in default_facet_titles
                 if facet in default_facet_titles:
                     facets[facet] = default_facet_titles[facet]
                 else:
