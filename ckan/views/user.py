@@ -109,7 +109,7 @@ def index():
     except logic.NotAuthorized:
         base.abort(403, _(u'Not authorized to see this page'))
 
-    users_list = logic.get_action(u'user_list')(context, data_dict)
+    users_list = logic.get_action(u'get_data_user')(context, data_dict)
 
     page = h.Page(
         collection=users_list,
@@ -618,7 +618,7 @@ class RequestResetView(MethodView):
             # Search by email address
             # (You can forget a user id, but you don't tend to forget your
             # email)
-            user_list = logic.get_action(u'user_list')(context, {
+            user_list = logic.get_action(u'get_data_user')(context, {
                 u'email': id
             })
             if user_list:

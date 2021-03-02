@@ -115,7 +115,7 @@ class UserController(base.BaseController):
         except NotAuthorized:
             abort(403, _('Not authorized to see this page'))
 
-        users_list = get_action('user_list')(context, data_dict)
+        users_list = get_action('get_data_user')(context, data_dict)
 
         c.page = h.Page(
             collection=users_list,
@@ -465,7 +465,7 @@ class UserController(base.BaseController):
                 except NotFound:
                     pass
             else:
-                user_list = logic.get_action(u'user_list')(context, {
+                user_list = logic.get_action(u'get_data_user')(context, {
                     u'email': id
                 })
                 if user_list:
