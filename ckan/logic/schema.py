@@ -280,7 +280,9 @@ def default_group_schema(
             "name": [not_empty, no_loops_in_hierarchy, unicode_safe],
             "capacity": [ignore_missing],
             "__extras": [ignore]
-        }
+        },
+        'bi_report_id': [ignore_missing, unicode_safe],
+        'bi_group_id': [ignore_missing, unicode_safe]
     }
 
 

@@ -50,6 +50,8 @@ group_table = Table('group', meta.metadata,
                            default=u"approved"),
                     Column('state', types.UnicodeText,
                            default=core.State.ACTIVE),
+                    Column('bi_report_id', types.UnicodeText),
+                    Column('bi_group_id', types.UnicodeText)
                     )
 
 

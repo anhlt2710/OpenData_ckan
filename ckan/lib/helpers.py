@@ -2764,11 +2764,6 @@ def get_translated(data_dict, field):
 @core_helper
 def facets():
     u'''Returns a list of the current facet names'''
-    print 11111111111111111
-    print 11111111111111111
-    print 11111111111111111
-    print 11111111111111111
-    print config.get(u'search.facets', DEFAULT_FACET_NAMES).split()
     return config.get(u'search.facets', DEFAULT_FACET_NAMES).split()
 
 
