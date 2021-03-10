@@ -23,11 +23,13 @@
     {% set is_url = data.image_url and data.image_url.startswith('http') %}
 
     {{ form.image_upload(data, errors, is_upload_enabled=h.uploads_enabled(), is_url=is_url, is_upload=is_upload) }}
+    
+    {% block custom_fields %}
+      {% snippet 'snippets/custom_form_fields.html', extras=data.extras, errors=errors, limit=3 %}
+    {% endblock %}
 
-  {% endblock %}
-
-  {% block custom_fields %}
-    {% snippet 'snippets/custom_form_fields.html', extras=data.extras, errors=errors, limit=3 %}
+    {% block org_dashboard_config %}{% endblock %}
+    
   {% endblock %}
 
   {{ form.required_message() }}
