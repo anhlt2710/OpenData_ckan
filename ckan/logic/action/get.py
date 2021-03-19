@@ -110,13 +110,11 @@ def package_list(context, data_dict):
     query = query.order_by(col)
 
     limit = data_dict.get('limit')
-    if limit:
-        query = query.limit(limit)
+    if limit:count(limit)
 
     offset = data_dict.get('offset')
     if offset:
         query = query.offset(offset)
-
     ## Returns the first field in each result record
     return [r[0] for r in query.execute()]
 
