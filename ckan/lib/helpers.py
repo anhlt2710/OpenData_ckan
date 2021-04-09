@@ -775,7 +775,6 @@ def flash_error(message, allow_html=False):
     ''' Show a flash message of type error '''
     flash(message, category='alert-error', allow_html=allow_html)
 
-
 @core_helper
 def flash_success(message, allow_html=False):
     ''' Show a flash message of type success '''

@@ -277,15 +277,17 @@ class EditView(MethodView):
                 dictization_functions.unflatten(
                     logic.tuplize_dict(logic.parse_params(request.files))))
             )
-
         except dictization_functions.DataError:
             base.abort(400, _(u'Integrity Error'))
         data_dict.setdefault(u'activity_streams_email_notifications', False)
-
+        if not data_dict.get('email'):
+            errors = {
+                u'email': [_(u'Email is not vacant')]
+            }
+            return self.get(id, data_dict, errors)
         context[u'message'] = data_dict.get(u'log_message', u'')
         data_dict[u'id'] = id
         email_changed = data_dict[u'email'] != g.userobj.email
-
         if (data_dict[u'password1']
                 and data_dict[u'password2']) or email_changed:
             identity = {
@@ -336,7 +338,6 @@ class EditView(MethodView):
         except logic.NotFound:
             base.abort(404, _(u'User not found'))
         user_obj = context.get(u'user_obj')
-
         errors = errors or {}
         vars = {
             u'data': data,
@@ -605,7 +606,7 @@ class RequestResetView(MethodView):
     def post(self):
         self._prepare()
         id = request.form.get(u'user')
-        if id in (None, u''):
+        if id.strip() in (None, u''):
             h.flash_error(_(u'Email is required'))
             return h.redirect_to(u'/user/reset')
         log.info(u'Password reset requested for user "{}"'.format(id))

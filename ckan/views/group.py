@@ -1099,7 +1099,8 @@ class MembersGroupView(MethodView):
         except NotFound:
             base.abort(404, _(u'Group not found'))
         except ValidationError as e:
-            h.flash_error(e.error_summary)
+            a = str(e.error_summary).split("'")[3].encode().decode('unicode-escape')
+            h.flash_error(a)
             return h.redirect_to(u'{}.member_new'.format(group_type), id=id)
 
         # TODO: Remove

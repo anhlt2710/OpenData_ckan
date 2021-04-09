@@ -820,7 +820,6 @@ def user_update(context, data_dict):
     context['user_obj'] = user_obj
     if user_obj is None:
         raise NotFound('User was not found.')
-
     _check_access('user_update', context, data_dict)
 
     upload = uploader.get_uploader('user')
