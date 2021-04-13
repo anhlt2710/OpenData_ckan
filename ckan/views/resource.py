@@ -211,7 +211,6 @@ class CreateView(MethodView):
                     and key != u'resource_type'):
                 data_provided = True
                 break
-
         if not data_provided and save_action != u"go-dataset-complete":
             if save_action == u'go-dataset':
                 # go to final stage of adddataset
@@ -276,9 +275,17 @@ class CreateView(MethodView):
             # go to first stage of add dataset
             return h.redirect_to(u'{}.edit'.format(package_type), id=id)
         elif save_action == u'go-dataset-complete':
-
+            if not data.get('url') or not data.get('name'):
+                error_summary = {}
+                if not data.get('url'):
+                    error_summary[u'Dữ liệu'] = u"Không được để trống"
+                if not data.get('name'):
+                    error_summary[u'Tên'] = u"Không được để trống"
+                return self.get(package_type, id, data, {}, error_summary)
             return h.redirect_to(u'{}.read'.format(package_type), id=id)
         else:
+            print "ssssss"
+            print data 
             # add more resources
             return h.redirect_to(
                 u'{}_resource.new'.format(package_type),
