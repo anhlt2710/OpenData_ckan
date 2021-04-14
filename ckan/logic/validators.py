@@ -975,3 +975,7 @@ def extras_valid_json(extras, context):
         raise Invalid(_(u'Could not parse extra \'{name}\' as valid JSON').
                 format(name=extra))
     return extras
+    
+def user_password_validator_space(key, data, errors, context):
+    if len(data[key]) > len(data[key].replace(" ", "")):
+        errors[key].append(_('Your password must not contain spaces'))

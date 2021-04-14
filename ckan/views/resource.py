@@ -756,6 +756,7 @@ class EditResourceViewView(MethodView):
             return base.abort(403, _(u'Unauthorized to edit resource'))
         else:
             if not to_preview:
+                print data
                 return h.redirect_to(
                     u'{}_resource.views'.format(package_type),
                     id=id, resource_id=resource_id
