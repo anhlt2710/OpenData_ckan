@@ -20,6 +20,7 @@ from ckan.views.home import CACHE_PARAMETERS
 from ckan.views.dataset import (
     _get_pkg_template, _get_package_type, _setup_template_variables
 )
+import re
 
 Blueprint = flask.Blueprint
 NotFound = logic.NotFound
@@ -45,6 +46,51 @@ prefixed_resource = Blueprint(
     __name__,
     url_prefix=u'/dataset/<id>/resource',
     url_defaults={u'package_type': u'dataset'}
+)
+
+ip_middle_octet = u"(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5]))"
+ip_last_octet = u"(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))"
+
+URL_PATTERN = re.compile(
+    u"^"
+    # protocol identifier
+    u"(?:(?:https?|ftp|rtsp|rtp|mmp)://)"
+    # user:pass authentication
+    u"(?:\S+(?::\S*)?@)?"
+    u"(?:"
+    u"(?P<private_ip>"
+    # IP address exclusion
+    # private & local networks
+    u"(?:localhost)|"
+    u"(?:(?:10|127)" + ip_middle_octet + u"{2}" + ip_last_octet + u")|"
+    u"(?:(?:169\.254|192\.168)" + ip_middle_octet + ip_last_octet + u")|"
+    u"(?:172\.(?:1[6-9]|2\d|3[0-1])" + ip_middle_octet + ip_last_octet + u"))"
+    u"|"
+    # IP address dotted notation octets
+    # excludes loopback network 0.0.0.0
+    # excludes reserved space >= 224.0.0.0
+    # excludes network & broadcast addresses
+    # (first & last IP address of each class)
+    u"(?P<public_ip>"
+    u"(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])"
+    u"" + ip_middle_octet + u"{2}"
+    u"" + ip_last_octet + u")"
+    u"|"
+    # host name
+    u"(?:(?:[a-z\u00a1-\uffff0-9_-]-?)*[a-z\u00a1-\uffff0-9_-]+)"
+    # domain name
+    u"(?:\.(?:[a-z\u00a1-\uffff0-9_-]-?)*[a-z\u00a1-\uffff0-9_-]+)*"
+    # TLD identifier
+    u"(?:\.(?:[a-z\u00a1-\uffff]{2,}))"
+    u")"
+    # port number
+    u"(?::\d{2,5})?"
+    # resource path
+    u"(?:/\S*)?"
+    # query string
+    u"(?:\?\S*)?"
+    u"$",
+    re.UNICODE | re.IGNORECASE
 )
 
 
@@ -284,8 +330,6 @@ class CreateView(MethodView):
                 return self.get(package_type, id, data, {}, error_summary)
             return h.redirect_to(u'{}.read'.format(package_type), id=id)
         else:
-            print "ssssss"
-            print data 
             # add more resources
             return h.redirect_to(
                 u'{}_resource.new'.format(package_type),
@@ -689,13 +733,17 @@ class EditResourceViewView(MethodView):
         data[u'view_type'] = request.args.get(u'view_type')
 
         try:
+            print 1
             if to_delete:
+                print 2
                 data[u'id'] = view_id
                 get_action(u'resource_view_delete')(context, data)
             elif view_id:
+                print 3
                 data[u'id'] = view_id
                 data = get_action(u'resource_view_update')(context, data)
             else:
+                print 4
                 data = get_action(u'resource_view_create')(context, data)
         except ValidationError as e:
             # Could break preview if validation error
