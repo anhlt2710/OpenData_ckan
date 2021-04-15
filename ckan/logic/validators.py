@@ -614,6 +614,8 @@ def user_password_validator(key, data, errors, context):
     elif len(value) < 8:
         errors[('password',)].append(_('Your password must be 8 characters or '
                                        'longer'))
+    elif len(value) > 32:
+        errors[('password',)].append(_('Your password must be less than 32 characters'))
 
 def user_passwords_match(key, data, errors, context):
 
@@ -976,6 +978,3 @@ def extras_valid_json(extras, context):
                 format(name=extra))
     return extras
     
-def user_password_validator_space(key, data, errors, context):
-    if len(data[key]) > len(data[key].replace(" ", "")):
-        errors[key].append(_('Your password must not contain spaces'))
