@@ -423,8 +423,8 @@ def user_new_form_schema(
 
     schema['email'] = [email_is_unique, not_empty]
     schema['password1'] = [text_type, user_both_passwords_entered,
-                           user_password_validator, user_passwords_match ]
-    schema['password2'] = [text_type ]
+                           user_password_validator ]
+    schema['password2'] = [text_type, user_passwords_match ]
 
     return schema
 
@@ -438,8 +438,8 @@ def user_edit_form_schema(
     schema['email'] = [email_is_unique, not_empty]
     schema['password'] = [ignore_missing ]
     schema['password1'] = [ignore_missing, unicode_safe,
-                           user_password_validator, user_passwords_match ]
-    schema['password2'] = [ignore_missing, unicode_safe ]
+                           user_password_validator]
+    schema['password2'] = [ignore_missing, unicode_safe, user_passwords_match ]
 
     return schema
 

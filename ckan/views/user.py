@@ -280,10 +280,11 @@ class EditView(MethodView):
         except dictization_functions.DataError:
             base.abort(400, _(u'Integrity Error'))
         data_dict.setdefault(u'activity_streams_email_notifications', False)
-        if not data_dict.get('email'):
-            errors = {
-                u'email': [_(u'Email is not vacant')]
-            }
+        if not data_dict.get('email') or len(data_dict.get('password1')) > len(data_dict.get('password1').replace(" ", "")):
+            if not data_dict.get('email') :
+                errors = {'email_string': _(u'Email cannot be left blank')}
+            if len(data_dict.get('password1')) > len(data_dict.get('password1').replace(" ", "")) and len(data_dict.get('password1')) >= 8 and len(data_dict.get('password1')) <= 32:
+                errors = {'password1_string': _(u'Your password must not contain spaces.')}
             return self.get(id, data_dict, errors)
         context[u'message'] = data_dict.get(u'log_message', u'')
         data_dict[u'id'] = id
