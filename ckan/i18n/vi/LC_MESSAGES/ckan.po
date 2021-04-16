@@ -2766,7 +2766,7 @@ msgstr ""
 
 #: ckan/templates/admin/snippets/data_type.html:41
 msgid "Purge"
-msgstr "Xóa tất cả"
+msgstr ""
 
 #: ckan/templates/dataviewer/snippets/data_preview.html:9
 msgid "This resource can not be previewed at the moment."
@@ -3533,7 +3533,7 @@ msgstr "Nguồn mới"
 #: ckan/templates/package/new_view.html:8
 #: ckan/templates/package/new_view.html:12
 msgid "Add view"
-msgstr "Thêm chức năng xem"
+msgstr ""
 
 #: ckan/templates/package/new_view.html:19
 msgid ""
