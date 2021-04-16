@@ -248,12 +248,12 @@ def default_show_package_schema(
 def default_group_schema(
         ignore_missing, unicode_safe, ignore, not_empty, name_validator,
         group_name_validator, package_id_or_name_exists,
-        no_loops_in_hierarchy, ignore_not_group_admin):
+        no_loops_in_hierarchy, ignore_not_group_admin, check_for_space):
     return {
         'id': [ignore_missing, unicode_safe],
         'name': [
-            not_empty, unicode_safe, name_validator],
-        'title': [ignore_missing, not_empty, unicode_safe, group_name_validator, name_validator],
+            not_empty, unicode_safe, check_for_space],
+        'title': [ignore_missing, not_empty, unicode_safe, group_name_validator, check_for_space],
         'description': [ignore_missing, unicode_safe],
         'image_url': [ignore_missing, unicode_safe],
         'image_display_url': [ignore_missing, unicode_safe],
