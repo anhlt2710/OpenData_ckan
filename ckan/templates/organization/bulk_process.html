@@ -51,12 +51,14 @@
                         {{ _('Make private') }}
                       </button>
                     </div>
+                    {% block button_delete %}
                     <div class="btn-group">
                       <button name="bulk_action.delete" value="delete" class="btn btn-danger" type="submit">
                         <i class="fa fa-times"></i>
                         {{ _('Delete') }}
                       </button>
                     </div>
+                    {% endblock %}
                   </th>
                 </tr>
               </thead>

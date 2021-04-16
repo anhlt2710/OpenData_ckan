@@ -5020,7 +5020,7 @@ msgid "Redirecting to external site is not allowed."
 msgstr ""
 
 #~ msgid "Reorder resource view"
-#~ msgstr ""
+#~ msgstr "Sắp xếp lại chế độ xem tài nguyên"
 
 #~ msgid "An error occurred: %(text)s %(error)s"
 #~ msgstr ""

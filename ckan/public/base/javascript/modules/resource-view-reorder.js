@@ -4,7 +4,7 @@ this.ckan.module('resource-view-reorder', function($) {
   return {
     options: {
       id: false,
-      labelText: 'Reorder resource view'
+      labelText: 'Sắp xếp lại chế độ xem tài nguyên'
     },
     template: {
       title: '<h1></h1>',

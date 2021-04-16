@@ -614,6 +614,8 @@ def user_password_validator(key, data, errors, context):
     elif len(value) < 8:
         errors[('password',)].append(_('Your password must be 8 characters or '
                                        'longer'))
+    elif len(value) > 32:
+        errors[('password',)].append(_('Your password must be less than 32 characters'))
 
 def user_passwords_match(key, data, errors, context):
 
@@ -975,3 +977,4 @@ def extras_valid_json(extras, context):
         raise Invalid(_(u'Could not parse extra \'{name}\' as valid JSON').
                 format(name=extra))
     return extras
+    

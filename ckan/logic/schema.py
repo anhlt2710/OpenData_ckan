@@ -252,8 +252,8 @@ def default_group_schema(
     return {
         'id': [ignore_missing, unicode_safe],
         'name': [
-            not_empty, unicode_safe, name_validator, group_name_validator],
-        'title': [ignore_missing, unicode_safe],
+            not_empty, unicode_safe, name_validator],
+        'title': [ignore_missing, not_empty, unicode_safe, group_name_validator, name_validator],
         'description': [ignore_missing, unicode_safe],
         'image_url': [ignore_missing, unicode_safe],
         'image_display_url': [ignore_missing, unicode_safe],
@@ -390,15 +390,15 @@ def default_user_schema(
         ignore_missing, unicode_safe, name_validator, user_name_validator,
         user_password_validator, user_password_not_empty, email_is_unique,
         ignore_not_sysadmin, not_empty, email_validator,
-        user_about_validator, ignore, boolean_validator, json_object):
+        user_about_validator, ignore, boolean_validator, json_object ):
     return {
         'id': [ignore_missing, unicode_safe],
         'name': [
             not_empty, name_validator, user_name_validator, unicode_safe],
         'fullname': [ignore_missing, unicode_safe],
         'password': [user_password_validator, user_password_not_empty,
-                     ignore_missing, unicode_safe],
-        'password_hash': [ignore_missing, ignore_not_sysadmin, unicode_safe],
+                     ignore_missing, unicode_safe ],
+        'password_hash': [ignore_missing, ignore_not_sysadmin, unicode_safe ],
         'email': [not_empty, email_validator, email_is_unique, unicode_safe],
         'about': [ignore_missing, user_about_validator, unicode_safe],
         'created': [ignore],
@@ -418,28 +418,28 @@ def default_user_schema(
 def user_new_form_schema(
         unicode_safe, user_both_passwords_entered,
         user_password_validator, user_passwords_match,
-        email_is_unique):
+        email_is_unique , not_empty):
     schema = default_user_schema()
 
-    schema['email'] = [email_is_unique]
+    schema['email'] = [email_is_unique, not_empty]
     schema['password1'] = [text_type, user_both_passwords_entered,
-                           user_password_validator, user_passwords_match]
-    schema['password2'] = [text_type]
+                           user_password_validator, user_passwords_match ]
+    schema['password2'] = [text_type ]
 
     return schema
 
 
 @validator_args
 def user_edit_form_schema(
-        ignore_missing, unicode_safe, user_both_passwords_entered,
-        user_password_validator, user_passwords_match, email_is_unique):
+        ignore_missing, unicode_safe, user_both_passwords_entered,not_empty,
+        user_password_validator, user_passwords_match, email_is_unique ):
     schema = default_user_schema()
 
-    schema['email'] = [email_is_unique]
-    schema['password'] = [ignore_missing]
+    schema['email'] = [email_is_unique, not_empty]
+    schema['password'] = [ignore_missing ]
     schema['password1'] = [ignore_missing, unicode_safe,
-                           user_password_validator, user_passwords_match]
-    schema['password2'] = [ignore_missing, unicode_safe]
+                           user_password_validator, user_passwords_match ]
+    schema['password2'] = [ignore_missing, unicode_safe ]
 
     return schema
 
@@ -448,7 +448,7 @@ def user_edit_form_schema(
 def default_update_user_schema(
         ignore_missing, name_validator, user_name_validator,
         unicode_safe, user_password_validator, email_is_unique,
-        not_empty, email_validator):
+        not_empty, email_validator ):
     schema = default_user_schema()
 
     schema['name'] = [
@@ -456,7 +456,7 @@ def default_update_user_schema(
     schema['email'] = [
         not_empty, email_validator, email_is_unique, unicode_safe]
     schema['password'] = [
-        user_password_validator, ignore_missing, unicode_safe]
+        user_password_validator, ignore_missing, unicode_safe ]
 
     return schema
 
