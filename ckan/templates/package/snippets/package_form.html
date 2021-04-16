@@ -12,7 +12,7 @@ then itself be extended to add/remove blocks of functionality. #}
   {# pkg_name used in 3 stage edit #}
   <input type="hidden" name="pkg_name" value="{{ data.id }}" />
   {% block errors %}
-  {# {{ form.errors(error_summary) }} #}
+  {{ form.errors(error_summary) }}
   {% endblock %}
 
   {% block basic_fields %}
