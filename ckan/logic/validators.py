@@ -979,5 +979,6 @@ def extras_valid_json(extras, context):
     return extras
     
 def check_for_space(key, data, errors, context):
-    if len(data[key]) > len(data[key].replace(" ", "")):
-        errors[key].append(_('There should be no spaces'))
+    if not data[key].replace(" ", "").split(" ")[0]:
+        errors[key].append(_('Missing value'))
+
