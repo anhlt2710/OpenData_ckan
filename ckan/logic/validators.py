@@ -980,5 +980,13 @@ def extras_valid_json(extras, context):
     
 def check_for_space(key, data, errors, context):
     if not data[key].replace(" ", "").split(" ")[0]:
-        errors[key].append(_('Missing value'))
+        errors[key].append(_('Do not leave it blank'))
+
+def email_validator_custom(value, context):
+    regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+    if value:
+        if email_pattern.match(value) and not re.search(regex, value):
+            raise Invalid(_('Email {email} is not a valid format').format(email=value))
+    return value
+
 
