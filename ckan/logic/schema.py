@@ -140,7 +140,7 @@ def default_create_package_schema(
         'relationships_as_subject': default_relationship_schema(),
         'groups': {
             'id': [ignore_missing, unicode_safe],
-            'name': [ignore_missing, unicode_safe],
+            'name': [ignore_missing, unicode_safe, not_empty,],
             'title': [ignore_missing, unicode_safe],
             '__extras': [ignore],
         }
