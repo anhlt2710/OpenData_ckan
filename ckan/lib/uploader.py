@@ -12,7 +12,7 @@ from werkzeug.datastructures import FileStorage as FlaskFileStorage
 import ckan.lib.munge as munge
 import ckan.logic as logic
 import ckan.plugins as plugins
-from ckan.common import config
+from ckan.common import config,_
 
 ALLOWED_UPLOAD_TYPES = (cgi.FieldStorage, FlaskFileStorage)
 MB = 1 << 20
@@ -36,7 +36,7 @@ def _copy_file(input_file, output_file, max_size):
             break
         output_file.write(data)
         if current_size > max_size:
-            raise logic.ValidationError({'upload': ['File upload too large']})
+            raise logic.ValidationError({'upload': [_('File upload too large')]})
 
 
 def _get_underlying_file(wrapper):

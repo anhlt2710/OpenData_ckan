@@ -19,6 +19,7 @@ import ckan.model as model
 import ckan.plugins as plugins
 from ckan import authz
 from ckan.common import _, config, g, request
+import re
 
 log = logging.getLogger(__name__)
 
@@ -280,14 +281,10 @@ class EditView(MethodView):
         except dictization_functions.DataError:
             base.abort(400, _(u'Integrity Error'))
         data_dict.setdefault(u'activity_streams_email_notifications', False)
-        if not data_dict.get('email') or len(data_dict.get('password1')) > len(data_dict.get('password1').replace(" ", "")):
-            if not data_dict.get('email') :
-                errors = {'email_string': _(u'Email cannot be left blank')}
-            if len(data_dict.get('password1')) > len(data_dict.get('password1').replace(" ", "")) and len(data_dict.get('password1')) >= 8 and len(data_dict.get('password1')) <= 32:
-                errors = {'password1_string': _(u'Your password must not contain spaces.')}
-            return self.get(id, data_dict, errors)
         context[u'message'] = data_dict.get(u'log_message', u'')
         data_dict[u'id'] = id
+        if self.validator_user(data_dict):
+            return self.get(id, data_dict, self.validator_user(data_dict))
         email_changed = data_dict[u'email'] != g.userobj.email
         if (data_dict[u'password1']
                 and data_dict[u'password2']) or email_changed:
@@ -322,6 +319,12 @@ class EditView(MethodView):
             # Update repoze.who cookie to match
             set_repoze_user(data_dict[u'name'], resp)
         return resp
+
+    def validator_user(self, data_dict=None, errors = None):
+        password1  = data_dict.get('password1')
+        if len(password1) > len(password1.replace(" ", "")) and len(password1) >= 8 and len(password1) <= 32:
+            errors = {'password1_string': _(u'Your password must not contain spaces.')}
+        return errors
 
     def get(self, id=None, data=None, errors=None, error_summary=None):
         context, id = self._prepare(id)

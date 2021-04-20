@@ -733,17 +733,13 @@ class EditResourceViewView(MethodView):
         data[u'view_type'] = request.args.get(u'view_type')
 
         try:
-            print 1
             if to_delete:
-                print 2
                 data[u'id'] = view_id
                 get_action(u'resource_view_delete')(context, data)
             elif view_id:
-                print 3
                 data[u'id'] = view_id
                 data = get_action(u'resource_view_update')(context, data)
             else:
-                print 4
                 data = get_action(u'resource_view_create')(context, data)
         except ValidationError as e:
             # Could break preview if validation error
