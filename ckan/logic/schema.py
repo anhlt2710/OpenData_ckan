@@ -29,7 +29,7 @@ def validator_args(fn):
 def default_resource_schema(
         ignore_empty, unicode_safe, ignore, ignore_missing,
         remove_whitespace, if_empty_guess_format, clean_format, isodate,
-        int_validator, extras_valid_json, keep_extras):
+        int_validator, extras_valid_json, keep_extras, not_empty, check_for_space):
     return {
         'id': [ignore_empty, unicode_safe],
         'package_id': [ignore],
@@ -40,7 +40,7 @@ def default_resource_schema(
         'hash': [ignore_missing, unicode_safe],
         'state': [ignore],
         'position': [ignore],
-        'name': [ignore_missing, unicode_safe],
+        'name': [ignore_missing, unicode_safe, not_empty, check_for_space],
         'resource_type': [ignore_missing, unicode_safe],
         'url_type': [ignore_missing, unicode_safe],
         'mimetype': [ignore_missing, unicode_safe],
@@ -728,11 +728,11 @@ def default_update_resource_view_schema(resource_view):
 @validator_args
 def default_update_resource_view_schema_changes(
         not_missing, not_empty, unicode_safe, resource_id_exists, ignore,
-        ignore_missing):
+        ignore_missing, check_for_space):
     return {
         'id': [not_missing, not_empty, unicode_safe],
         'resource_id': [ignore_missing, resource_id_exists],
-        'title': [ignore_missing, unicode_safe],
+        'title': [ignore_missing, unicode_safe, not_empty, check_for_space],
         'view_type': [ignore],  # cannot change after create
         'package_id': [ignore]
     }
