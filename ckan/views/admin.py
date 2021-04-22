@@ -154,21 +154,21 @@ class TrashView(MethodView):
         }
         self.messages = {
             u'confirm': {
-                u'all': u'Are you sure you want to purge everything?',
-                u'package': u'Are you sure you want to purge datasets?',
+                u'all': _(u'Are you sure you want to purge everything?'),
+                u'package': _(u'Are you sure you want to purge datasets?'),
                 u'organization':
-                    u'Are you sure you want to purge organizations?',
-                u'group': u'Are you sure you want to purge groups?'
+                    _(u'Are you sure you want to purge organizations?'),
+                u'group': _(u'Are you sure you want to purge groups?')
             },
             u'success': {
-                u'package': u'{number} datasets have been purged',
-                u'organization': u'{number} organizations have been purged',
-                u'group': u'{number} groups have been purged'
+                u'package': _(u'{number} datasets have been purged'),
+                u'organization': _(u'{number} organizations have been purged'),
+                u'group': _(u'{number} groups have been purged')
             },
             u'empty': {
-                u'package': u'There are no datasets to purge',
-                u'organization': u'There are no organizations to purge',
-                u'group': u'There are no groups to purge'
+                u'package': _(u'There are no datasets to purge'),
+                u'organization': _(u'There are no organizations to purge'),
+                u'group': _(u'There are no groups to purge')
             }
         }
 
