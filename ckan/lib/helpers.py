@@ -820,7 +820,7 @@ def _link_to(text, *args, **kwargs):
         else:
             active = ''
         kwargs.pop('highlight_actions', '')
-        return kwargs.pop('class_', '') + active or None
+        return kwargs.pop('class_', 'nav-link') + active or None
 
     def _create_link_text(text, **kwargs):
         ''' Update link text to add a icon or span if specified in the
@@ -1120,8 +1120,8 @@ def _make_menu_item(menu_item, title, **kw):
                             % (menu_item, need))
     link = _link_to(title, menu_item, suppress_active_class=True, **item)
     if active:
-        return literal('<li class="active">') + link + literal('</li>')
-    return literal('<li>') + link + literal('</li>')
+        return literal('<li class="nav-item active">') + link + literal('</li>')
+    return literal('<li class="nav-item">') + link + literal('</li>')
 
 
 @core_helper
