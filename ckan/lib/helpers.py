@@ -2466,7 +2466,7 @@ def resource_view_get_fields(resource):
 
     data = {
         'resource_id': resource['id'],
-        'limit': 0,
+        'limit': 6,
         'include_total': False,
     }
     try:
