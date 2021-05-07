@@ -10,6 +10,7 @@
   {% endif %}
 {%- endmacro %}
 
+{% block followee_dropdown %}
 <div id="followee-filter" class="pull-right">
   <div class="btn-group">
     <a href="#followee-popover" class="btn btn-default dropdown-toggle" title="{{ _('Activity from:') }} {{ context.context }}">
@@ -45,3 +46,4 @@
     {% endif %}
   </form>
 </div>
+{% endblock %}
