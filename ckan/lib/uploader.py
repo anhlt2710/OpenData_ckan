@@ -49,13 +49,13 @@ def get_uploader(upload_to, old_filename=None):
     '''Query IUploader plugins and return an uploader instance for general
     files.'''
     upload = None
+    
     for plugin in plugins.PluginImplementations(plugins.IUploader):
         upload = plugin.get_uploader(upload_to, old_filename)
 
     # default uploader
     if upload is None:
         upload = Upload(upload_to, old_filename)
-
     return upload
 
 
@@ -135,7 +135,6 @@ class Upload(object):
         actually is). clear_field is the name of a boolean field which
         requests the upload to be deleted.  This needs to be called before
         it reaches any validators'''
-
         self.url = data_dict.get(url_field, '')
         self.clear = data_dict.pop(clear_field, None)
         self.file_field = file_field

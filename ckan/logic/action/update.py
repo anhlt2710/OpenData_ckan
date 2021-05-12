@@ -815,14 +815,13 @@ def user_update(context, data_dict):
     session = context['session']
     schema = context.get('schema') or schema_.default_update_user_schema()
     id = _get_or_bust(data_dict, 'id')
-
     user_obj = model.User.get(id)
     context['user_obj'] = user_obj
     if user_obj is None:
         raise NotFound('User was not found.')
     _check_access('user_update', context, data_dict)
-
     upload = uploader.get_uploader('user')
+    
     upload.update_data_dict(data_dict, 'image_url',
                             'image_upload', 'clear_upload')
 
