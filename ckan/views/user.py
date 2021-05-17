@@ -283,6 +283,7 @@ class EditView(MethodView):
         data_dict.setdefault(u'activity_streams_email_notifications', False)
         context[u'message'] = data_dict.get(u'log_message', u'')
         data_dict[u'id'] = id
+        data_dict[u'name'] = id
         if self.validator_user(data_dict):
             return self.get(id, data_dict, self.validator_user(data_dict))
         email_changed = data_dict[u'email'] != g.userobj.email
