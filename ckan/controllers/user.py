@@ -162,6 +162,7 @@ class UserController(base.BaseController):
         '''GET to display a form for registering a new user.
            or POST the form data to actually do the user registration.
         '''
+        print "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         context = {'model': model,
                    'session': model.Session,
                    'user': c.user,
@@ -423,6 +424,7 @@ class UserController(base.BaseController):
 
     def logout(self):
         # Do any plugin logout stuff
+        print "huhuhuhuhuh"
         for item in p.PluginImplementations(p.IAuthenticator):
             item.logout()
         url = h.url_for(controller='user', action='logged_out_page')
@@ -431,6 +433,7 @@ class UserController(base.BaseController):
 
     def logged_out(self):
         # redirect if needed
+        print "hahahahah"
         came_from = request.params.get('came_from', '')
         if h.url_is_local(came_from):
             return h.redirect_to(str(came_from))

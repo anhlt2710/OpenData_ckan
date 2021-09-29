@@ -393,7 +393,6 @@ class RegisterView(MethodView):
 
         except dictization_functions.DataError:
             base.abort(400, _(u'Integrity Error'))
-
         context[u'message'] = data_dict.get(u'log_message', u'')
         try:
             captcha.check_recaptcha(request)
@@ -401,9 +400,19 @@ class RegisterView(MethodView):
             error_msg = _(u'Bad Captcha. Please try again.')
             h.flash_error(error_msg)
             return self.get(data_dict)
-
         try:
-            logic.get_action(u'user_create')(context, data_dict)
+            error_summary = {}
+            if not data_dict.get('image_upload'):
+                error_summary[u'image_url'] = u'Do not leave it blank'
+            if not data_dict.get('password1'):
+                error_summary[u'password1'] = u'Vui l\xf2ng nh\u1eadp m\u1eadt kh\u1ea9u'
+            if not data_dict.get('password2'):
+                error_summary[u'password2'] = u'Vui l\xf2ng nh\u1eadp m\u1eadt kh\u1ea9u'
+            if not error_summary:
+                logic.get_action(u'user_create')(context, data_dict)
+            else:
+                return self.get(data_dict, [], error_summary)
+            
         except logic.NotAuthorized:
             base.abort(403, _(u'Unauthorized to create user %s') % u'')
         except logic.NotFound:
@@ -412,7 +421,6 @@ class RegisterView(MethodView):
             errors = e.error_dict
             error_summary = e.error_summary
             return self.get(data_dict, errors, error_summary)
-
         if g.user:
             # #1799 User has managed to register whilst logged in - warn user
             # they are not re-logged in as new user.
@@ -426,7 +434,6 @@ class RegisterView(MethodView):
                 return h.redirect_to(u'user.activity', id=data_dict[u'name'])
             else:
                 return base.render(u'user/logout_first.html')
-
         # log the user in programatically
         resp = h.redirect_to(u'user.me')
         set_repoze_user(data_dict[u'name'], resp)
