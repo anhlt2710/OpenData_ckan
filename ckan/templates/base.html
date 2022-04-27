@@ -87,7 +87,7 @@
       {%- endif %}
     {% endblock %}
   </head>
-
+  {% block body %}
   {# Allows custom attributes to be added to the <body> tag #}
   <body{% block bodytag %} data-site-root="{{ h.url_for('/', locale='default', qualified=true) }}" data-locale-root="{{ h.url_for('/', qualified=true) }}" {% endblock %}>
 
@@ -123,4 +123,5 @@
     {{ h.render_assets('style') }}
     {{ h.render_assets('script') }}
   </body>
+  {% endblock %}
 </html>

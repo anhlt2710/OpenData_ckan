@@ -283,6 +283,7 @@ class EditView(MethodView):
         data_dict.setdefault(u'activity_streams_email_notifications', False)
         context[u'message'] = data_dict.get(u'log_message', u'')
         data_dict[u'id'] = id
+        data_dict[u'name'] = id
         if self.validator_user(data_dict):
             return self.get(id, data_dict, self.validator_user(data_dict))
         email_changed = data_dict[u'email'] != g.userobj.email
@@ -392,7 +393,6 @@ class RegisterView(MethodView):
 
         except dictization_functions.DataError:
             base.abort(400, _(u'Integrity Error'))
-
         context[u'message'] = data_dict.get(u'log_message', u'')
         try:
             captcha.check_recaptcha(request)
@@ -400,9 +400,19 @@ class RegisterView(MethodView):
             error_msg = _(u'Bad Captcha. Please try again.')
             h.flash_error(error_msg)
             return self.get(data_dict)
-
         try:
-            logic.get_action(u'user_create')(context, data_dict)
+            error_summary = {}
+            if not data_dict.get('image_upload'):
+                error_summary[u'image_url'] = u'Do not leave it blank'
+            if not data_dict.get('password1'):
+                error_summary[u'password1'] = u'Vui l\xf2ng nh\u1eadp m\u1eadt kh\u1ea9u'
+            if not data_dict.get('password2'):
+                error_summary[u'password2'] = u'Vui l\xf2ng nh\u1eadp m\u1eadt kh\u1ea9u'
+            if not error_summary:
+                logic.get_action(u'user_create')(context, data_dict)
+            else:
+                return self.get(data_dict, [], error_summary)
+            
         except logic.NotAuthorized:
             base.abort(403, _(u'Unauthorized to create user %s') % u'')
         except logic.NotFound:
@@ -411,7 +421,6 @@ class RegisterView(MethodView):
             errors = e.error_dict
             error_summary = e.error_summary
             return self.get(data_dict, errors, error_summary)
-
         if g.user:
             # #1799 User has managed to register whilst logged in - warn user
             # they are not re-logged in as new user.
@@ -425,7 +434,6 @@ class RegisterView(MethodView):
                 return h.redirect_to(u'user.activity', id=data_dict[u'name'])
             else:
                 return base.render(u'user/logout_first.html')
-
         # log the user in programatically
         resp = h.redirect_to(u'user.me')
         set_repoze_user(data_dict[u'name'], resp)
@@ -451,20 +459,22 @@ class RegisterView(MethodView):
         return base.render(u'user/new.html', extra_vars)
 
 
-def login():
+def login(error=None):
     # Do any plugin login stuff
     for item in plugins.PluginImplementations(plugins.IAuthenticator):
         response = item.login()
         if response:
             return response
-
     extra_vars = {}
+    error_summary = None
     if g.user:
         return base.render(u'user/logout_first.html', extra_vars)
-
     came_from = request.params.get(u'came_from')
     if not came_from:
         came_from = h.url_for(u'user.logged_in')
+    extra_vars.update({
+        u'error_summary': error,
+    })
     g.login_handler = h.url_for(
         _get_repoze_handler(u'login_handler_path'), came_from=came_from)
     return base.render(u'user/login.html', extra_vars)
@@ -472,16 +482,15 @@ def login():
 
 def logged_in():
     # redirect if needed
-    came_from = request.params.get(u'came_from', u'')
-    if h.url_is_local(came_from):
-        return h.redirect_to(str(came_from))
+    came_from = request.params.get(u'came_from', u'')   
 
+    if h.url_is_local(came_from) == False:
+        return login(None)
     if g.user:
         return me()
     else:
-        err = _(u'Login failed. Bad username or password.')
-        h.flash_error(err)
-        return login()
+        error = _(u'Login failed. Bad username or password.')
+        return login(error)
 
 
 def logout():
@@ -491,7 +500,7 @@ def logout():
         if response:
             return response
 
-    url = h.url_for(u'user.logged_out_page')
+    url = h.url_for(u'home.index')
     return h.redirect_to(
         _get_repoze_handler(u'logout_handler_path') + u'?came_from=' + url,
         parse_url=True)
@@ -611,8 +620,13 @@ class RequestResetView(MethodView):
         self._prepare()
         id = request.form.get(u'user')
         if id.strip() in (None, u''):
-            h.flash_error(_(u'Email is required'))
-            return h.redirect_to(u'/user/reset')
+            extra_vars = {}
+            extra_vars.update({
+                u'error_summary': {
+                    u'email': _(u'Do not leave it blank')
+                },
+            })
+            return base.render(u'user/request_reset.html', extra_vars)
         log.info(u'Password reset requested for user "{}"'.format(id))
 
         context = {u'model': model, u'user': g.user, u'ignore_auth': True}
@@ -670,14 +684,11 @@ class RequestResetView(MethodView):
 
         # always tell the user it succeeded, because otherwise we reveal
         # which accounts exist or not
-        h.flash_success(
-            _(u'A reset link has been emailed to you '
-              '(unless the account specified does not exist)'))
-        return h.redirect_to(u'home.index')
+        return base.render(u'user/request_reset.html', { u'error_summary': {u'reset_password': u'thanhcong'}})
 
     def get(self):
         self._prepare()
-        return base.render(u'user/request_reset.html', {})
+        return base.render(u'user/request_reset.html', { u'error_summary': {}})
 
 
 class PerformResetView(MethodView):
